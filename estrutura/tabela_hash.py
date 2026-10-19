@@ -48,11 +48,25 @@ class TabelaHash:
             if pais["codigo"] == codigo:
                 self.tabela[posicao].remove(pais)
                 return True
-    
-            
+
+
     def listar_paises(self):
         lista_geral = []
         for posicao in self.tabela:
             for pais in self.tabela[posicao]:
                 lista_geral.append(pais)
         return lista_geral
+    
+
+    def buscar(self, codigo:str):
+        posicao = self.calcula_posicao(codigo)
+
+        if posicao not in self.tabela:
+            return None
+        
+        for item in self.tabela[posicao]:
+            if item["codigo"] == codigo:
+                return item
+            
+        return None
+        
