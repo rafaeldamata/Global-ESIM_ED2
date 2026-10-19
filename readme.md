@@ -8,7 +8,6 @@ O GlobalSIM é uma aplicação Web em Python/Flask para administrar países aten
 **Equipe:**
 - Victor César do Rosário Calheiros
 - Rafael Fernandes Da Mata
-- [Nome do outro integrante, se houver]
 
 ---
 
