@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Países Cadastrados</title>
+</head>
+<body>
+    <h1>Painel de Países</h1>
+    <a href="/">Voltar para o Menu Inicial</a>
+    <hr>
+
+    <!-- Se a rota mandou apenas um país (resultado da busca) -->
+    {% if pais %}
+        <h3>Resultado da Busca:</h3>
+        <table border="1" cellpadding="5">
+            <tr>
+                <th>Código</th>
+                <th>País</th>
+                <th>Região</th>
+                <th>Operadora</th>
+                <th>Tecnologia</th>
+                <th>Ações</th>
+            </tr>
+            <tr>
+                <td>{{ pais.codigo }}</td>
+                <td>{{ pais.pais }}</td>
+                <td>{{ pais.regiao }}</td>
+                <td>{{ pais.operadora }}</td>
+                <td>{{ pais.tecnologia }}</td>
+                <td>
+                    <a href="/remover_pais/{{ pais.codigo }}">Excluir</a>
+                </td>
+            </tr>
+        </table>
+
+    <!-- Se a rota mandou uma lista completa de países -->
+    {% elif paises %}
+        <h3>Lista de Todos os Países ({{ paises|length }} cadastrados):</h3>
+        <table border="1" cellpadding="5">
+            <tr>
+                <th>Código</th>
+                <th>País</th>
+                <th>Região</th>
+                <th>Operadora</th>
+                <th>Tecnologia</th>
+                <th>Ações</th>
+            </tr>
+            {% for item in paises %}
+            <tr>
+                <td>{{ item.codigo }}</td>
+                <td>{{ item.pais }}</td>
+                <td>{{ item.regiao }}</td>
+                <td>{{ item.operadora }}</td>
+                <td>{{ item.tecnologia }}</td>
+                <td>
+                    <a href="/remover_pais/{{ item.codigo }}">Excluir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>Nenhum país encontrado.</p>
+    {% endif %}
+
+
+    <h3>Alterar Dados de um País</h3>
+    <form action="/alterar_pais" method="POST">
+        <label>Código do País (digite o código do país que deseja alterar):</label><br>
+        <input type="text" name="codigo" required><br><br>
+
+        <label>Novo Nome do País:</label><br>
+        <input type="text" name="pais" required><br><br>
+
+        <label>Nova Região:</label><br>
+        <input type="text" name="regiao"><br><br>
+
+        <label>Nova Operadora:</label><br>
+        <input type="text" name="operadora"><br><br>
+
+        <label>Nova Tecnologia:</label><br>
+        <input type="text" name="tecnologia"><br><br>
+
+        <button type="submit">Salvar Alterações</button>
+    </form>
+
+</body>
+</html>

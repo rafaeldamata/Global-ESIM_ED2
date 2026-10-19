@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerenciador de Países - Global ESIM</title>
+</head>
+<body>
+    <h1>Bem-vindo ao Gerenciador de Países</h1>
+    <hr>
+
+    <h2>Menu Principal</h2>
+    <ul>
+        <li><a href="/listagem_paises">Ver Listagem Completa de Países</a></li>
+    </ul>
+
+    <h3>Cadastrar Novo País</h3>
+    <form action="/inserir_pais" method="POST">
+        <label>Código:</label><br>
+        <input type="text" name="codigo" required><br><br>
+
+        <label>País:</label><br>
+        <input type="text" name="pais" required><br><br>
+
+        <label>Região:</label><br>
+        <input type="text" name="regiao"><br><br>
+
+        <label>Operadora:</label><br>
+        <input type="text" name="operadora"><br><br>
+
+        <label>Tecnologia:</label><br>
+        <input type="text" name="tecnologia"><br><br>
+
+        <button type="submit">Cadastrar País</button>
+    </form>
+
+    <hr>
+    <h3>Pesquisar País por Código</h3>
+    <form action="/buscar_pais" method="GET">
+        <label>Código:</label>
+        <input type="text" name="codigo" required>
+        <button type="submit">Buscar</button>
+    </form>
+</body>
+</html>
