@@ -1,9 +1,18 @@
 [
     {
+        "codigo": "BR",
+        "pais": "Brasil",
+        "regiao": "America",
+        "operadora": "Vivo",
+        "tecnologia": "4G/5G",
+        "ddi": "55"
+    },
+    {
         "codigo": "IT",
+        "ddi": "39",
         "pais": "Itália",
-        "regiao": "Europa ocidental",
-        "operadora": "Operadora-Roma",
+        "regiao": "Europa",
+        "operadora": "Vivo",
         "tecnologia": "4G"
     }
 ]

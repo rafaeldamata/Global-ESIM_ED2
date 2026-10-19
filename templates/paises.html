@@ -2,86 +2,201 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Países Cadastrados</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Países Cadastrados - GlobalSIM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        function prepararEdicao(codigo, ddi, pais, regiao, operadora, tecnologia) {
+            document.getElementById('edit_codigo').value = codigo;
+            document.getElementById('edit_ddi').value = ddi;
+            document.getElementById('edit_pais').value = pais;
+            document.getElementById('edit_regiao').value = regiao;
+            document.getElementById('edit_operadora').value = operadora;
+            document.getElementById('edit_tecnologia').value = tecnologia;
+            
+            const formContainer = document.getElementById('form_edicao');
+            formContainer.classList.add('ring-4', 'ring-blue-300', 'transform', 'scale-[1.01]');
+            setTimeout(() => formContainer.classList.remove('ring-4', 'ring-blue-300', 'transform', 'scale-[1.01]'), 800);
+
+            formContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    </script>
 </head>
-<body>
-    <h1>Painel de Países</h1>
-    <a href="/">Voltar para o Menu Inicial</a>
-    <hr>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased py-10 px-4 min-h-screen">
+    <div class="max-w-7xl mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-blue-800 to-blue-600 text-white p-6 flex flex-col sm:flex-row justify-between items-center shadow-md">
+            <div class="flex items-center space-x-3 mb-4 sm:mb-0">
+                <span class="text-3xl">📡</span>
+                <h1 class="text-2xl font-bold tracking-wide">Rede GlobalSIM</h1>
+            </div>
+            <a href="/" class="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-semibold py-2 px-6 rounded-xl transition duration-300 border border-white/30 shadow-sm">
+                ← Voltar ao Menu
+            </a>
+        </div>
 
-    <!-- Se a rota mandou apenas um país (resultado da busca) -->
-    {% if pais %}
-        <h3>Resultado da Busca:</h3>
-        <table border="1" cellpadding="5">
-            <tr>
-                <th>Código</th>
-                <th>País</th>
-                <th>Região</th>
-                <th>Operadora</th>
-                <th>Tecnologia</th>
-                <th>Ações</th>
-            </tr>
-            <tr>
-                <td>{{ pais.codigo }}</td>
-                <td>{{ pais.pais }}</td>
-                <td>{{ pais.regiao }}</td>
-                <td>{{ pais.operadora }}</td>
-                <td>{{ pais.tecnologia }}</td>
-                <td>
-                    <a href="/remover_pais/{{ pais.codigo }}">Excluir</a>
-                </td>
-            </tr>
-        </table>
+        <div class="p-8">
+            <!-- Tabela de Resultados -->
+            <div class="mb-12">
+                {% if pais %}
+                    <div class="flex items-center mb-6">
+                        <span class="bg-green-100 text-green-600 p-2 rounded-full mr-3">✅</span>
+                        <h2 class="text-2xl font-bold text-gray-800">COBERTURA DISPONÍVEL</h2>
+                    </div>
+                    <div class="overflow-x-auto shadow-lg rounded-xl border border-gray-200">
+                        <table class="min-w-full bg-white divide-y divide-gray-200">
+                            <thead class="bg-gray-50/80 backdrop-blur">
+                                <tr>
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Abrev.</th>
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">DDI</th>
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">País</th>
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Região</th>
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Operadora</th>
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Tecnologia</th>
+                                    <th class="px-6 py-4 text-center text-xs font-bold text-gray-500 uppercase tracking-wider">Gestão</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                <tr class="hover:bg-blue-50/50 transition duration-200">
+                                    <td class="px-6 py-5 whitespace-nowrap"><span class="bg-gray-100 text-gray-700 font-bold px-3 py-1 rounded-lg border border-gray-200">{{ pais.codigo }}</span></td>
+                                    <!-- DDI com + embutido na tabela -->
+                                    <td class="px-6 py-5 whitespace-nowrap text-gray-600 font-bold">+{{ pais.ddi }}</td>
+                                    <td class="px-6 py-5 whitespace-nowrap font-bold text-gray-800">{{ pais.pais }}</td>
+                                    <td class="px-6 py-5 whitespace-nowrap">
+                                        <span class="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-semibold text-purple-700 ring-1 ring-inset ring-purple-700/20">{{ pais.regiao }}</span>
+                                    </td>
+                                    <td class="px-6 py-5 whitespace-nowrap text-gray-600">{{ pais.operadora }}</td>
+                                    <td class="px-6 py-5 whitespace-nowrap">
+                                        <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-bold text-blue-700 ring-1 ring-inset ring-blue-700/20">{{ pais.tecnologia }}</span>
+                                    </td>
+                                    <td class="px-6 py-5 whitespace-nowrap text-center">
+                                        <button type="button" onclick="prepararEdicao('{{ pais.codigo }}', '{{ pais.ddi }}', '{{ pais.pais }}', '{{ pais.regiao }}', '{{ pais.operadora }}', '{{ pais.tecnologia }}')" class="p-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg mr-2 transition duration-200" title="Editar">✏️</button>
+                                        <form action="/remover_pais" method="POST" class="inline">
+                                            <input type="hidden" name="codigo" value="{{ pais.codigo }}">
+                                            <button type="submit" class="p-2 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg transition duration-200" title="Excluir">🗑️</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-    <!-- Se a rota mandou uma lista completa de países -->
-    {% elif paises %}
-        <h3>Lista de Todos os Países ({{ paises|length }} cadastrados):</h3>
-        <table border="1" cellpadding="5">
-            <tr>
-                <th>Código</th>
-                <th>País</th>
-                <th>Região</th>
-                <th>Operadora</th>
-                <th>Tecnologia</th>
-                <th>Ações</th>
-            </tr>
-            {% for item in paises %}
-            <tr>
-                <td>{{ item.codigo }}</td>
-                <td>{{ item.pais }}</td>
-                <td>{{ item.regiao }}</td>
-                <td>{{ item.operadora }}</td>
-                <td>{{ item.tecnologia }}</td>
-                <td>
-                    <a href="/remover_pais/{{ item.codigo }}">Excluir</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
-    {% else %}
-        <p>Nenhum país encontrado.</p>
-    {% endif %}
+                {% elif paises %}
+                    <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-2">Destinos Ativos <span class="text-sm font-medium text-gray-500 bg-gray-100 px-3 py-1 rounded-full ml-2">{{ paises|length }} cadastrados</span></h2>
+                    <div class="overflow-x-auto shadow-lg rounded-xl border border-gray-200">
+                        <table class="min-w-full bg-white divide-y divide-gray-200">
+                            <thead class="bg-gray-50/80 backdrop-blur">
+                                <tr>
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Abrev.</th>
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">DDI</th>
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">País</th>
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Região</th>
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Operadora</th>
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Tecnologia</th>
+                                    <th class="px-6 py-4 text-center text-xs font-bold text-gray-500 uppercase tracking-wider">Gestão</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                {% for item in paises %}
+                                <tr class="hover:bg-blue-50/50 transition duration-200">
+                                    <td class="px-6 py-5 whitespace-nowrap"><span class="bg-gray-100 text-gray-700 font-bold px-3 py-1 rounded-lg border border-gray-200">{{ item.codigo }}</span></td>
+                                    <!-- DDI com + embutido na tabela -->
+                                    <td class="px-6 py-5 whitespace-nowrap text-gray-600 font-bold">+{{ item.ddi }}</td>
+                                    <td class="px-6 py-5 whitespace-nowrap font-bold text-gray-800">{{ item.pais }}</td>
+                                    <td class="px-6 py-5 whitespace-nowrap">
+                                        <span class="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-semibold text-purple-700 ring-1 ring-inset ring-purple-700/20">{{ item.regiao }}</span>
+                                    </td>
+                                    <td class="px-6 py-5 whitespace-nowrap text-gray-600">{{ item.operadora }}</td>
+                                    <td class="px-6 py-5 whitespace-nowrap">
+                                        <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-bold text-blue-700 ring-1 ring-inset ring-blue-700/20">{{ item.tecnologia }}</span>
+                                    </td>
+                                    <td class="px-6 py-5 whitespace-nowrap text-center">
+                                        <button type="button" onclick="prepararEdicao('{{ item.codigo }}', '{{ item.ddi }}', '{{ item.pais }}', '{{ item.regiao }}', '{{ item.operadora }}', '{{ item.tecnologia }}')" class="p-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg mr-2 transition duration-200" title="Editar">✏️</button>
+                                        <form action="/remover_pais" method="POST" class="inline">
+                                            <input type="hidden" name="codigo" value="{{ item.codigo }}">
+                                            <button type="submit" class="p-2 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg transition duration-200" title="Excluir">🗑️</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="bg-orange-50 border-l-4 border-orange-400 p-6 rounded-xl shadow-sm">
+                        <div class="flex items-center">
+                            <span class="text-2xl mr-4">⚠️</span>
+                            <div>
+                                <h3 class="text-lg font-bold text-orange-800">Nenhum destino encontrado</h3>
+                                <p class="text-orange-700 mt-1">A base de dados da GlobalSIM está vazia no momento.</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
 
-
-    <h3>Alterar Dados de um País</h3>
-    <form action="/alterar_pais" method="POST">
-        <label>Código do País (digite o código do país que deseja alterar):</label><br>
-        <input type="text" name="codigo" required><br><br>
-
-        <label>Novo Nome do País:</label><br>
-        <input type="text" name="pais" required><br><br>
-
-        <label>Nova Região:</label><br>
-        <input type="text" name="regiao"><br><br>
-
-        <label>Nova Operadora:</label><br>
-        <input type="text" name="operadora"><br><br>
-
-        <label>Nova Tecnologia:</label><br>
-        <input type="text" name="tecnologia"><br><br>
-
-        <button type="submit">Salvar Alterações</button>
-    </form>
-
+            <!-- Formulário de Alteração (Com chave bloqueada e DDI numérico) -->
+            <div id="form_edicao" class="bg-white p-8 rounded-2xl border border-gray-200 shadow-xl mt-12 transition-all duration-300 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-400 to-indigo-500"></div>
+                <h3 class="text-xl font-bold mb-6 text-gray-800 flex items-center">
+                    <span class="bg-indigo-100 text-indigo-600 p-2 rounded-lg mr-3">⚙️</span> Configuração de Destino
+                </h3>
+                <p class="text-sm text-gray-500 mb-6">Clique no ícone de lápis na tabela acima para carregar os dados de um país para edição.</p>
+                
+                <form action="/alterar_pais" method="POST" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-5 items-end">
+                    
+                    <div class="lg:col-span-1">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Abrev. <span class="text-red-500" title="Chave Primária">*</span></label>
+                        <input type="text" id="edit_codigo" name="codigo" required readonly class="w-full border border-gray-300 bg-gray-100 text-gray-500 font-bold px-4 py-3 rounded-xl cursor-not-allowed focus:outline-none" title="Chave primária (Abreviação) inalterável">
+                    </div>
+                    
+                    <div class="lg:col-span-1">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">DDI</label>
+                        <!-- DDI Numérico com + embutido na edição também -->
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500 font-bold">+</span>
+                            <input type="number" id="edit_ddi" name="ddi" required min="1" class="w-full border border-gray-300 pl-8 pr-3 py-3 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none transition-shadow">
+                        </div>
+                    </div>
+                    
+                    <div class="lg:col-span-1">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Nome do País</label>
+                        <input type="text" id="edit_pais" name="pais" required class="w-full border border-gray-300 px-4 py-3 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none transition-shadow">
+                    </div>
+                    
+                    <div class="lg:col-span-1">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Região</label>
+                        <select id="edit_regiao" name="regiao" required class="w-full border border-gray-300 px-4 py-3 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none transition-shadow cursor-pointer bg-white">
+                            <option value="América do Norte">América do Norte</option>
+                            <option value="América Latina">América Latina</option>
+                            <option value="Europa">Europa</option>
+                            <option value="Ásia-Pacífico">Ásia-Pacífico</option>
+                            <option value="África">África</option>
+                            <option value="Oriente Médio">Oriente Médio</option>
+                        </select>
+                    </div>
+                    
+                    <div class="lg:col-span-1">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Operadora</label>
+                        <input type="text" id="edit_operadora" name="operadora" class="w-full border border-gray-300 px-4 py-3 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none transition-shadow">
+                    </div>
+                    
+                    <div class="lg:col-span-1">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Tecnologia</label>
+                        <select id="edit_tecnologia" name="tecnologia" required class="w-full border border-gray-300 px-4 py-3 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none transition-shadow cursor-pointer bg-white">
+                            <option value="4G">4G</option>
+                            <option value="5G">5G</option>
+                            <option value="4G/5G">4G / 5G</option>
+                            <option value="LTE">LTE</option>
+                        </select>
+                    </div>
+                    
+                    <div class="lg:col-span-1">
+                        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-xl transition duration-300 shadow-md transform hover:-translate-y-0.5">Atualizar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

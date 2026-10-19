@@ -9,7 +9,7 @@ def carregar_dados():
         return []
     
     try:
-        with open(CAMINHO_JSON if 'CAMINHOS_JSON' else CAMINHO_JSON, "r", encoding="utf-8") as f:
+        with open(CAMINHO_JSON, "r", encoding="utf-8") as f:
             return json.load(f)
     except (json.JSONDecodeError, FileNotFoundError):
         return []

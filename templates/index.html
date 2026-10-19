@@ -2,43 +2,103 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Gerenciador de Países - Global ESIM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlobalSIM - Painel Administrativo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>Bem-vindo ao Gerenciador de Países</h1>
-    <hr>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased min-h-screen flex flex-col items-center py-10">
+    <div class="w-full max-w-5xl bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100">
+        <!-- Header com Gradiente -->
+        <div class="bg-gradient-to-r from-blue-800 to-blue-600 text-white p-8 text-center shadow-inner">
+            <h1 class="text-3xl font-extrabold tracking-tight">🌍 GlobalSIM</h1>
+            <p class="mt-2 text-blue-100 font-medium">Gestão de Países e Cobertura eSIM</p>
+        </div>
+        
+        <div class="p-8">
+            <div class="mb-10 text-center">
+                <a href="/listagem_paises" class="inline-flex justify-center items-center w-full md:w-auto bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 font-bold py-3 px-8 rounded-xl transition duration-300 shadow-sm hover:shadow">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path></svg>
+                    Ver Listagem Completa de Países
+                </a>
+            </div>
 
-    <h2>Menu Principal</h2>
-    <ul>
-        <li><a href="/listagem_paises">Ver Listagem Completa de Países</a></li>
-    </ul>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Seção de Cadastro -->
+                <div class="md:border-r border-gray-200 md:pr-10">
+                    <h2 class="text-2xl font-bold mb-6 text-gray-800 flex items-center">
+                        <span class="bg-green-100 text-green-600 p-2 rounded-lg mr-3">➕</span> Cadastrar Novo País
+                    </h2>
+                    <form action="/inserir_pais" method="POST" class="space-y-5">
+                        <div class="flex space-x-4">
+                            <div class="w-1/2">
+                                <label class="text-sm text-gray-700 font-semibold mb-1 block">Abreviação</label>
 
-    <h3>Cadastrar Novo País</h3>
-    <form action="/inserir_pais" method="POST">
-        <label>Código:</label><br>
-        <input type="text" name="codigo" required><br><br>
+                                <input type="text" name="codigo" placeholder="Ex: IT" required maxlength="2" minlength="2" pattern="[A-Za-z]{2}" title="Abreviação deve ter exatamente 2 letras" class="w-full border border-gray-300 px-4 py-3 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-shadow bg-gray-50 hover:bg-white uppercase">
+                            </div>
+                            <div class="w-1/2">
+                                <label class="text-sm text-gray-700 font-semibold mb-1 block">DDI</label>
+                   
+                                <div class="relative">
+                                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-500 font-bold">+</span>
+                                    <input type="number" name="ddi" placeholder="39" required min="1" class="w-full border border-gray-300 pl-9 pr-4 py-3 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-shadow bg-gray-50 hover:bg-white">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-sm text-gray-700 font-semibold mb-1 block">Nome do País</label>
+                            <input type="text" name="pais" placeholder="Ex: Itália" required class="w-full border border-gray-300 px-4 py-3 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-shadow bg-gray-50 hover:bg-white">
+                        </div>
+                        <div>
+                            <label class="text-sm text-gray-700 font-semibold mb-1 block">Região</label>
+                            <select name="regiao" required class="w-full border border-gray-300 px-4 py-3 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none bg-gray-50 hover:bg-white transition-shadow cursor-pointer">
+                                <option value="" disabled selected>Selecione a região...</option>
+                                <option value="América do Norte">América do Norte</option>
+                                <option value="América Latina">América Latina</option>
+                                <option value="Europa">Europa</option>
+                                <option value="Ásia-Pacífico">Ásia-Pacífico</option>
+                                <option value="África">África</option>
+                                <option value="Oriente Médio">Oriente Médio</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-sm text-gray-700 font-semibold mb-1 block">Operadora Local</label>
+                            <input type="text" name="operadora" placeholder="Ex: Vodafone IT" class="w-full border border-gray-300 px-4 py-3 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-shadow bg-gray-50 hover:bg-white">
+                        </div>
+                        <div>
+                            <label class="text-sm text-gray-700 font-semibold mb-1 block">Tecnologia Suportada</label>
+                            <select name="tecnologia" required class="w-full border border-gray-300 px-4 py-3 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none bg-gray-50 hover:bg-white transition-shadow cursor-pointer">
+                                <option value="" disabled selected>Selecione a tecnologia...</option>
+                                <option value="4G">4G</option>
+                                <option value="5G">5G</option>
+                                <option value="4G/5G">4G / 5G</option>
+                                <option value="LTE">LTE</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-3 px-4 rounded-xl transition duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                            Salvar Novo País
+                        </button>
+                    </form>
+                </div>
 
-        <label>País:</label><br>
-        <input type="text" name="pais" required><br><br>
-
-        <label>Região:</label><br>
-        <input type="text" name="regiao"><br><br>
-
-        <label>Operadora:</label><br>
-        <input type="text" name="operadora"><br><br>
-
-        <label>Tecnologia:</label><br>
-        <input type="text" name="tecnologia"><br><br>
-
-        <button type="submit">Cadastrar País</button>
-    </form>
-
-    <hr>
-    <h3>Pesquisar País por Código</h3>
-    <form action="/buscar_pais" method="GET">
-        <label>Código:</label>
-        <input type="text" name="codigo" required>
-        <button type="submit">Buscar</button>
-    </form>
+                <!-- Seção de Busca -->
+                <div>
+                    <h2 class="text-2xl font-bold mb-6 text-gray-800 flex items-center">
+                        <span class="bg-blue-100 text-blue-600 p-2 rounded-lg mr-3">🔍</span> Pesquisar Cobertura
+                    </h2>
+                    <form action="/buscar_pais" method="GET" class="bg-blue-50 p-6 rounded-2xl border border-blue-100 shadow-sm">
+                        <label class="text-sm text-gray-700 font-bold mb-2 block">Abreviação do País</label>
+                        <div class="flex space-x-3">
+                            
+                            <input type="text" name="codigo" placeholder="Ex: IT" required maxlength="2" minlength="2" pattern="[A-Za-z]{2}" class="flex-1 border border-gray-300 px-4 py-3 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-shadow uppercase">
+                            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition duration-300 shadow-md">
+                                Buscar
+                            </button>
+                        </div>
+                        <p class="text-xs text-blue-600 mt-4 text-center">Verifique a disponibilidade de rede da GlobalSIM no destino do cliente.</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
