@@ -2,9 +2,9 @@
 
 Projeto prático desenvolvido para a disciplina de Estruturas de Dados II do curso de Bacharelado em Sistemas de Informação da UNEB - DCET/I[cite: 1].
 
-O GlobalSIM é uma aplicação Web em Python/Flask para administrar países atendidos, clientes e eSIMs de uma rede internacional simulada, com o objetivo de aplicar na prática as estruturas de dados estudadas na disciplina[cite: 1].
+O GlobalSIM é uma aplicação Web em Python/Flask para administrar países atendidos, clientes e eSIMs de uma rede internacional simulada, com o objetivo de aplicar na prática as estruturas de dados estudadas na disciplina
 
-**Professora:** Maria Inés Restovic[cite: 1]  
+**Professora:** Maria Inés Restovic
 **Equipe:**
 - Victor César do Rosário Calheiros
 - Rafael Fernandes Da Mata
