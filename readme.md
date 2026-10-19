@@ -1,6 +1,6 @@
 # 🌍 GlobalSIM - Serviço Internacional de Internet por eSIM
 
-Projeto prático desenvolvido para a disciplina de Estruturas de Dados II do curso de Bacharelado em Sistemas de Informação da UNEB - DCET/I[cite: 1].
+Projeto prático desenvolvido para a disciplina de Estruturas de Dados II do curso de Bacharelado em Sistemas de Informação da UNEB - DCET/I
 
 O GlobalSIM é uma aplicação Web em Python/Flask para administrar países atendidos, clientes e eSIMs de uma rede internacional simulada, com o objetivo de aplicar na prática as estruturas de dados estudadas na disciplina
 
@@ -42,7 +42,7 @@ O GlobalSIM é uma aplicação Web em Python/Flask para administrar países aten
 
 ## 🧠 Estruturas de Dados Implementadas (Etapa 1)
 
-Nesta primeira etapa, o foco foi a implementação do gerenciamento de Países Atendidos utilizando uma **Tabela Hash** construída do zero, garantindo a separação total entre a lógica da estrutura de dados e as rotas Web do Flask[cite: 3].
+Nesta primeira etapa, o foco foi a implementação do gerenciamento de Países Atendidos utilizando uma **Tabela Hash** construída do zero, garantindo a separação total entre a lógica da estrutura de dados e as rotas Web do Flask.
 
 - **Mecanismo da Tabela Hash:** Foi criada a classe `TabelaHash`, onde a chave de espalhamento (hash) é a Abreviação do país (código de duas letras)[cite: 3]. O cálculo de posição foi projetado de forma determinística, somando os valores ASCII dos caracteres para garantir a estabilidade do índice de memória durante as execuções. O tratamento de colisões é feito por meio de encadeamento direto (listas internas).
 - **Persistência de Dados:** Os dados são persistidos em um arquivo `paises.json`[cite: 3]. Durante a inicialização do Flask, o arquivo é lido e os registros são carregados em memória para a Tabela Hash. Todas as operações de busca, alteração e remoção manipulam exclusivamente a estrutura de dados em memória, refletindo o estado atualizado no arquivo JSON posteriormente, sem utilizar bibliotecas prontas como mecanismo principal de busca[cite: 3, 10].
