@@ -1,11 +1,11 @@
 [
     {
         "codigo": "BR",
+        "ddi": "55",
         "pais": "Brasil",
-        "regiao": "America",
+        "regiao": "América Latina",
         "operadora": "Vivo",
-        "tecnologia": "4G/5G",
-        "ddi": "55"
+        "tecnologia": "5G"
     },
     {
         "codigo": "IT",
@@ -14,5 +14,29 @@
         "regiao": "Europa",
         "operadora": "Vivo",
         "tecnologia": "4G"
+    },
+    {
+        "codigo": "US",
+        "ddi": "88",
+        "pais": "Estados Unidos",
+        "regiao": "América do Norte",
+        "operadora": "Claro",
+        "tecnologia": "5G"
+    },
+    {
+        "codigo": "AG",
+        "ddi": "22",
+        "pais": "Argentina",
+        "regiao": "América Latina",
+        "operadora": "TIM",
+        "tecnologia": "4G"
+    },
+    {
+        "codigo": "EG",
+        "ddi": "79",
+        "pais": "Egito",
+        "regiao": "África",
+        "operadora": "Starlink",
+        "tecnologia": "LTE"
     }
 ]
